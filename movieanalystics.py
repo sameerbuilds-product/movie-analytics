@@ -33,7 +33,7 @@ TIMEOUT = 15
 def get_supabase() -> Client:
     try:
         url = st.secrets["https://hkglwguayubffqzyhhea.supabase.co"]
-        key = st.secrets["sb_publishable_t_A11KwaY_7PmjMNR9svlA_9uZNAtti"]
+        key = st.secrets["sb_publishable_33tbWqYu9KSHnyDMqcubqA_Sk1_a8PF"]
     except Exception:
         st.error("Supabase credentials are missing. Add SUPABASE_URL and SUPABASE_KEY in Streamlit app Secrets.")
         st.stop()
