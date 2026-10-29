@@ -1,7 +1,7 @@
 import os, hashlib, re
 from datetime import datetime, timezone
 from urllib.parse import quote_plus
-from html import unescape
+from html import unescape                
 
 import pandas as pd
 import requests
@@ -31,12 +31,15 @@ CATEGORIES = ["All Indian Cinema", "Bollywood", "Telugu Cinema", "Tamil Cinema",
 TIMEOUT = 15
 
 def get_supabase() -> Client:
-    try:
-        url = st.secrets["https://hkglwguayubffqzyhhea.supabase.co"]
-        key = st.secrets["sb_publishable_33tbWqYu9KSHnyDMqcubqA_Sk1_a8PF"]
-    except Exception:
-        st.error("Supabase credentials are missing. Add SUPABASE_URL and SUPABASE_KEY in Streamlit app Secrets.")
+    st.write("Secret names detected:", list(st.secrets.keys()))
+
+    url = st.secrets.get("SUPABASE_URL", "https://hkglwguayubffqzyhhea.supabase.co")
+    key = st.secrets.get("SUPABASE_KEY", "sb_publishable_33tbWqYu9KSHnyDMqcubqA_Sk1_a8PF")
+
+    if not url or not key:
+        st.error("One or both Supabase secrets are missing.")
         st.stop()
+
     return create_client(url, key)
 
 def strip_html(s):
